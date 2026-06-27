@@ -15,7 +15,6 @@ techdou-profile/
 │   ├── photo.jpg          头像
 │   ├── wechat.jpg         微信二维码
 │   ├── douxiulu_resume.pdf  简历 PDF（resume 按钮指向 /resume）
-│   └── _archive/          未被引用的历史素材（可清理）
 └── pet/                桌面宠物模块（首页 iframe 内嵌）
     ├── pet.html
     ├── pet.js
@@ -42,4 +41,3 @@ python -m http.server 8000
 
 - `resume.html` 顶部「Resume」按钮指向 `https://profile.techdou.com/resume`，PDF 文件位于 `assets/douxiulu_resume.pdf`。
 - 站点字体由 Google Fonts 提供（Fraunces / Work Sans / Noto Serif SC / Noto Sans SC）。
-- `assets/_archive/` 为已确认未被引用的旧素材，确认无用后可整体删除。
