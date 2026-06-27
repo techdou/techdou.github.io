@@ -5,7 +5,10 @@ desktop.ini
 
 # Duplicate / backup copies — not versioned
 /pet - 副本/
+*- 副本/
 
 # Editor / OS cruft
 *.log
 node_modules/
+.vscode/
+.idea/

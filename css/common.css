@@ -1,0 +1,40 @@
+/* ============================================================
+   common.css — Techdou Profile 共享样式
+   design tokens / reset / 字体加载，由 index.html 与 resume.html 共用
+   ============================================================ */
+
+/* === DESIGN TOKENS (Vintage Editorial) === */
+:root {
+    --bg-cream: #f5f3ee;
+    --bg-card: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-muted: #8a8a8a;
+    --accent-warm: #e8d4c0;
+    --accent-terracotta: #c0785a;
+    --border-color: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.16);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --font-display: 'Fraunces', 'Noto Serif SC', serif;
+    --font-body: 'Work Sans', 'Noto Sans SC', sans-serif;
+    --font-cn-display: 'Noto Serif SC', serif;
+    --font-cn-body: 'Noto Sans SC', sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-cn-body);
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
