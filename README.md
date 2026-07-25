@@ -67,3 +67,4 @@ python -m http.server 8000
 - 原生 HTML / CSS / JavaScript，无构建步骤
 - Canvas 2D 绘制宠物
 - Google Fonts（Fraunces / Work Sans / Noto Serif SC / Noto Sans SC）
+
