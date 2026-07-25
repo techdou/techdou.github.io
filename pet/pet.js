@@ -66,15 +66,15 @@ const PET_CONFIG = {
         '技术是手段，生活才是目的。'
       ],
       frames: {
-        idle: './assets/techdou/idle.webp',
-        idleWink: './assets/techdou/idle-wink.webp',
-        walkFront1: './assets/techdou/walk-front-1.webp',
-        walkFront2: './assets/techdou/walk-front-2.webp',
-        walkLeft: './assets/techdou/walk-left.webp',
-        walkRight: './assets/techdou/walk-right.webp',
-        walkBack: './assets/techdou/walk-back-1.webp',
-        sleep: './assets/techdou/sleep.webp',
-        cloud: './assets/techdou/jindou-cloud.webp'
+        idle: './assets/techdou/idle.webp?v=2',
+        idleWink: './assets/techdou/idle-wink.webp?v=2',
+        walkFront1: './assets/techdou/walk-front-1.webp?v=2',
+        walkFront2: './assets/techdou/walk-front-2.webp?v=2',
+        walkLeft: './assets/techdou/walk-left.webp?v=2',
+        walkRight: './assets/techdou/walk-right.webp?v=2',
+        walkBack: './assets/techdou/walk-back-1.webp?v=2',
+        sleep: './assets/techdou/sleep.webp?v=2',
+        cloud: './assets/techdou/jindou-cloud.webp?v=2'
       }
     },
     {
@@ -102,15 +102,73 @@ const PET_CONFIG = {
       cloudScaleH: 0.71,
       cloudOffsetY: 0.2,
       frames: {
-        idle: './assets/douknow/idle.webp',
-        idleWink: './assets/douknow/idle-wink.webp',
-        walkFront1: './assets/douknow/walk-front-1.webp',
-        walkFront2: './assets/douknow/walk-front-2.webp',
-        walkLeft: './assets/douknow/walk-left.webp',
-        walkRight: './assets/douknow/walk-right.webp',
-        walkBack: './assets/douknow/walk-back-1.webp',
-        sleep: './assets/douknow/sleep.webp',
-        cloud: './assets/douknow/fruit-plate.webp'
+        idle: './assets/douknow/idle.webp?v=2',
+        idleWink: './assets/douknow/idle-wink.webp?v=2',
+        walkFront1: './assets/douknow/walk-front-1.webp?v=2',
+        walkFront2: './assets/douknow/walk-front-2.webp?v=2',
+        walkLeft: './assets/douknow/walk-left.webp?v=2',
+        walkRight: './assets/douknow/walk-right.webp?v=2',
+        walkBack: './assets/douknow/walk-back-1.webp?v=2',
+        sleep: './assets/douknow/sleep.webp?v=2',
+        cloud: './assets/douknow/fruit-plate.webp?v=2'
+      }
+    },
+    {
+      id: 'xiaodou',
+      name: '小豆',
+      startXRatio: 0.5,
+      // 小豆是"主角"，比另外两只稍大，凸显存在感
+      sizeScale: 1.15,
+      // idle 变体：IDLE 状态下随机切换这些帧（getCurrentFrame 会用到）
+      idleVariants: ['idle-think', 'idle-look'],
+      // idle 状态偶尔触发的"事件"帧，播放一次后回到 idle
+      idleEvents: [
+        { frame: 'wave', chance: 0.15, duration: 1800 },
+        { frame: 'happy', chance: 0.08, duration: 1600 }
+      ],
+      quotes: [
+        '路还长，慢慢走。',
+        '把书读薄，把事做实。',
+        '好奇是起点，耐心是路。',
+        '先理解问题，再寻找答案。',
+        '细节里藏着答案。',
+        '换个角度，往往就通了。',
+        '教是最好的学。',
+        '慢一点，反而快。',
+        '今日宜：学一件小事。',
+        '把复杂留给自己，把简单留给别人。',
+        '看得近一点，世界会不一样。',
+        '记录，是给未来的自己写信。',
+        '保持好奇，保持耐心。',
+        '技术是手段，人是目的。'
+      ],
+      // 底座（书卷）相对尺寸/位置：比云朵窄一点、更贴近脚下
+      cloudScaleW: 1.4,
+      cloudScaleH: 0.62,
+      cloudOffsetY: 0.22,
+      frames: {
+        idle: './assets/xiaodou/idle.webp?v=1',
+        idleWink: './assets/xiaodou/idle-wink.webp?v=1',
+        // 新增 idle 变体（老 pet 没这些 key，getCurrentFrame 会 fallback）
+        idleThink: './assets/xiaodou/idle-think.webp?v=1',
+        idleLook: './assets/xiaodou/idle-look.webp?v=1',
+        // walk 系列：每方向 2 帧循环
+        walkFront1: './assets/xiaodou/walk-front-1.webp?v=1',
+        walkFront2: './assets/xiaodou/walk-front-2.webp?v=1',
+        walkLeft1: './assets/xiaodou/walk-left-1.webp?v=1',
+        walkLeft2: './assets/xiaodou/walk-left-2.webp?v=1',
+        walkRight1: './assets/xiaodou/walk-right-1.webp?v=1',
+        walkRight2: './assets/xiaodou/walk-right-2.webp?v=1',
+        walkBack1: './assets/xiaodou/walk-back-1.webp?v=1',
+        walkBack2: './assets/xiaodou/walk-back-2.webp?v=1',
+        // sleep 系列：2 帧呼吸
+        sleep: './assets/xiaodou/sleep.webp?v=1',
+        sleep2: './assets/xiaodou/sleep-2.webp?v=1',
+        // 互动事件帧
+        wave: './assets/xiaodou/wave.webp?v=1',
+        happy: './assets/xiaodou/happy.webp?v=1',
+        // 底座（书卷）
+        cloud: './assets/xiaodou/scroll.webp?v=1'
       }
     }
   ]
@@ -122,6 +180,11 @@ function randomRange(min, max) {
 
 function clamp(val, min, max) {
   return Math.max(min, Math.min(max, val));
+}
+
+// 'idle-think' → 'idleThink'：把 kebab-case 帧名转成 frames 对象的驼峰 key
+function camelKey(kebab) {
+  return kebab.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
 
 function length(x, y) {
@@ -176,7 +239,7 @@ class DouknowPet {
     this.bounds = { left: 0, top: 0, width: canvasWidth, height: canvasHeight };
     this.exclusions = []; // 禁区矩形列表（父页面下发：导航/卡片/标题等不可进入区域）
 
-    this.sizeScale = opts.sizeScale || 1;
+    this.sizeScale = opts.sizeScale != null ? opts.sizeScale : (skin.sizeScale != null ? skin.sizeScale : 1);
     this.speedScale = opts.speedScale || 1;
     this.size = PET_CONFIG.baseSize * this.sizeScale;
 
@@ -196,6 +259,16 @@ class DouknowPet {
     this.walkFrameTimer = 0;
     this.isWinking = false;
     this.winkTimer = 0;
+
+    // 新增：sleep 2 帧呼吸循环
+    this.sleepFrameIndex = 0;
+    this.sleepFrameTimer = 0;
+    // 新增：idle 变体（think/look）随机切换
+    this.idleVariant = null;
+    this.idleVariantTimer = 0;
+    // 新增：idle 事件帧（wave/happy）偶尔播放
+    this.idleEventFrame = null;
+    this.idleEventTimer = 0;
 
     this.isFleeing = false;
     this.fleeTimer = 0;
@@ -477,6 +550,7 @@ class DouknowPet {
   }
 
   updateIdle(dt) {
+    // 1) 眨眼（原有逻辑）
     if (!this.isWinking) {
       if (Math.random() < PET_CONFIG.winkChance * (dt / 16)) {
         this.isWinking = true;
@@ -486,9 +560,59 @@ class DouknowPet {
       this.winkTimer -= dt;
       if (this.winkTimer <= 0) this.isWinking = false;
     }
+
+    // 2) idle 事件帧（wave/happy）播放中 → 倒计时，结束清空
+    if (this.idleEventFrame) {
+      this.idleEventTimer -= dt;
+      if (this.idleEventTimer <= 0) this.idleEventFrame = null;
+      return;  // 事件帧播放期间不切换变体
+    }
+
+    // 3) idle 事件触发（仅 skin 配置了 idleEvents 时）
+    const events = this.skin.idleEvents;
+    if (events && events.length > 0 && !this.idleVariant && !this.isWinking) {
+      for (const ev of events) {
+        // 低频触发：chance * (dt/16) * 0.1
+        if (Math.random() < ev.chance * (dt / 16) * 0.1) {
+          const imgKey = camelKey(ev.frame);
+          if (this.images[imgKey]) {
+            this.idleEventFrame = imgKey;
+            this.idleEventTimer = ev.duration;
+            return;
+          }
+        }
+      }
+    }
+
+    // 4) idle 变体（think/look）切换：当前无变体时，有概率切一个
+    const variants = this.skin.idleVariants;
+    if (variants && variants.length > 0 && !this.idleVariant && !this.isWinking) {
+      if (Math.random() < 0.0008 * (dt / 16)) {
+        const key = camelKey(variants[Math.floor(Math.random() * variants.length)]);
+        if (this.images[key]) {
+          this.idleVariant = key;
+          this.idleVariantTimer = randomRange(3000, 6000);
+        }
+      }
+    }
+
+    // 5) idle 变体倒计时
+    if (this.idleVariant) {
+      this.idleVariantTimer -= dt;
+      if (this.idleVariantTimer <= 0) this.idleVariant = null;
+    }
   }
 
   updateSleep(dt, time) {
+    // sleep 2 帧呼吸循环（仅 sleep2 存在时生效）
+    if (this.images.sleep2) {
+      this.sleepFrameTimer += dt;
+      if (this.sleepFrameTimer >= 2400) {
+        this.sleepFrameTimer = 0;
+        this.sleepFrameIndex = (this.sleepFrameIndex + 1) % 2;
+      }
+    }
+
     this.sleepBubbleTimer += dt;
     if (this.sleepBubbleTimer > 1200) {
       this.sleepBubbleTimer = 0;
@@ -548,15 +672,37 @@ class DouknowPet {
   getCurrentFrame() {
     if (this.isDragging) return this.images.idle;
 
+    // idle 事件帧（wave/happy）播放中优先
+    if (this.state === PetState.IDLE && this.idleEventFrame && this.images[this.idleEventFrame]) {
+      return this.images[this.idleEventFrame];
+    }
+
     switch (this.state) {
       case PetState.IDLE:
-        return this.isWinking ? this.images.idleWink : this.images.idle;
+        // 眨眼优先
+        if (this.isWinking && this.images.idleWink) return this.images.idleWink;
+        // idle 变体（think/look），无则 fallback 到 idle
+        if (this.idleVariant && this.images[this.idleVariant]) return this.images[this.idleVariant];
+        return this.images.idle;
       case PetState.WALK:
-        if (this.direction === Direction.LEFT) return this.images.walkLeft;
-        if (this.direction === Direction.RIGHT) return this.images.walkRight;
-        if (this.direction === Direction.BACK) return this.images.walkBack;
+        // 每方向优先 2 帧循环，fallback 到老单帧 key（walkLeft/walkRight/walkBack）
+        if (this.direction === Direction.LEFT) {
+          if (this.walkFrameIndex === 1 && this.images.walkLeft2) return this.images.walkLeft2;
+          return this.images.walkLeft1 || this.images.walkLeft;
+        }
+        if (this.direction === Direction.RIGHT) {
+          if (this.walkFrameIndex === 1 && this.images.walkRight2) return this.images.walkRight2;
+          return this.images.walkRight1 || this.images.walkRight;
+        }
+        if (this.direction === Direction.BACK) {
+          if (this.walkFrameIndex === 1 && this.images.walkBack2) return this.images.walkBack2;
+          return this.images.walkBack1 || this.images.walkBack;
+        }
+        // FRONT
         return this.walkFrameIndex === 0 ? this.images.walkFront1 : this.images.walkFront2;
       case PetState.SLEEP:
+        // 2 帧呼吸循环，无 sleep2 则 fallback 到单帧
+        if (this.sleepFrameIndex === 1 && this.images.sleep2) return this.images.sleep2;
         return this.images.sleep;
       default:
         return this.images.idle;
@@ -801,7 +947,7 @@ class PetParty {
       const pet = new DouknowPet(this.ctx, skin, this.skinImages[skin.id], {
         x: w * (skin.startXRatio != null ? skin.startXRatio : 0.3 + i * 0.4),
         y: h * 0.72,
-        sizeScale: 1,
+        // sizeScale 不传，让 constructor 走 skin.sizeScale fallback（小豆 1.15，其他 1）
         speedScale: randomRange(0.85, 1.15)
       }, w, h);
       this.pets.push(pet);
