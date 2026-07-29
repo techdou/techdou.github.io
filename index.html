@@ -1120,8 +1120,9 @@
     setTimeout(updatePetSurface, 800);
     setTimeout(updatePetSurface, 2000);
 
-    // 宠物禁区：导航条、剧场卡片（仅显示中的）、首屏大标题（淡出前）、作品区引子
-    // 注意：作品行（.work-row）刻意不挡——宠物可以在作品区里走动（豆哥指定活动范围）
+    // 宠物禁区：导航条、小豆 3D 剧场（#meet-xiaodou 整段）、作品区引子
+    // 小豆只在 body > main / body > section.timeline-section / body > footer 活动，
+    // 不进入 #meet-xiaodou（那是 3D 剧场首屏）。
     function updatePetExclusions() {
         const rects = [];
         const push = (el) => {
@@ -1131,10 +1132,9 @@
             }
         };
         document.querySelectorAll('.brand, .top-nav, .works-lead').forEach(push);
-        // 卡片与大标题会随滚动淡入淡出，只挡当前可见的
-        document.querySelectorAll('.xd-card, .xd-hero').forEach(el => {
-            if (parseFloat(el.style.opacity || '1') > 0.08) push(el);
-        });
+        // 整个 #meet-xiaodou 剧场区作为禁区（含其内部卡片/标题，无需再单独列）
+        const xdSection = document.getElementById('meet-xiaodou');
+        if (xdSection) push(xdSection);
         postToPet('douknow-pet-exclusions', { rects });
     }
     let petExclTick = false;

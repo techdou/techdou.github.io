@@ -43,10 +43,12 @@ const PET_CONFIG = {
   talkFont: 15,
   talkMaxWidthRatio: 2.8,
   // 双宠物皮肤：绿色科技豆（techdou.com）+ 橙色豆懂AI（douknowai）
+  // 当前桌面端只保留小豆登场；科技豆/豆懂AI用 enabled:false 暂时下线，定义保留以便随时恢复。
   skins: [
     {
       id: 'techdou',
       name: '科技豆',
+      enabled: false,
       startXRatio: 0.26,
       quotes: [
         '日拱一卒，功不唐捐。',
@@ -80,6 +82,7 @@ const PET_CONFIG = {
     {
       id: 'douknow',
       name: '豆懂AI',
+      enabled: false,
       startXRatio: 0.74,
       quotes: [
         '知之为知之，不知为不知。',
@@ -905,7 +908,7 @@ class PetParty {
     this.lastTime = performance.now();
     this.rafId = requestAnimationFrame((t) => this.loop(t));
     this.postBounds();
-    console.log('[DouknowPet] 科技豆 & 豆懂AI 双宠物系统已启动');
+    console.log('[DouknowPet] 宠物系统已启动（当前登场：' + this.pets.map(p => p.skin.name).join('、') + ')');
   }
 
   resizeCanvas() {
@@ -943,7 +946,9 @@ class PetParty {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    PET_CONFIG.skins.forEach((skin, i) => {
+    // enabled 未显式设置的视为启用（兼容旧 skin 定义）
+    const activeSkins = PET_CONFIG.skins.filter(s => s.enabled !== false);
+    activeSkins.forEach((skin, i) => {
       const pet = new DouknowPet(this.ctx, skin, this.skinImages[skin.id], {
         x: w * (skin.startXRatio != null ? skin.startXRatio : 0.3 + i * 0.4),
         y: h * 0.72,
