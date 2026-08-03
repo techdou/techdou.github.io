@@ -1120,6 +1120,28 @@
     setTimeout(updatePetSurface, 800);
     setTimeout(updatePetSurface, 2000);
 
+    // 小豆显隐：仅当 body>main 进入视口时才让小豆淡入。
+    // 首屏（hero 3D 剧场）时小豆隐藏，避免被禁区挤到导航/hero 上方夹缝里。
+    // 阈值：main 顶部进入视口下沿以内 80px 时显示（提前一点淡入更自然）。
+    function updatePetVisibility() {
+        const mainEl = document.querySelector('body > main');
+        if (!mainEl) return;
+        const r = mainEl.getBoundingClientRect();
+        // main 顶部距视口下沿的距离：正值=还在下方未进入；<=threshold 表示快进入了
+        const visible = r.top < window.innerHeight - 80;
+        postToPet('douknow-pet-visibility', { visible });
+    }
+    let petVisTick = false;
+    window.addEventListener('scroll', () => {
+        if (petVisTick) return;
+        petVisTick = true;
+        requestAnimationFrame(() => { petVisTick = false; updatePetVisibility(); });
+    }, { passive: true });
+    window.addEventListener('resize', updatePetVisibility);
+    petFrame.addEventListener('load', updatePetVisibility);
+    setTimeout(updatePetVisibility, 800);
+    setTimeout(updatePetVisibility, 2000);
+
     // 宠物禁区：导航条、小豆 3D 剧场（#meet-xiaodou 整段）、作品区引子
     // 小豆只在 body > main / body > section.timeline-section / body > footer 活动，
     // 不进入 #meet-xiaodou（那是 3D 剧场首屏）。

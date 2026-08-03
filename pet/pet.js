@@ -728,7 +728,8 @@ class DouknowPet {
     const drawY = this.y - drawH * 0.5;
 
     ctx.save();
-
+    // 捕获外层全局透明度（用于淡入淡出），本方法内所有子段都基于它叠加
+    const baseAlpha = ctx.globalAlpha;
     const cloud = this.images.cloud;
     const scaleW = this.skin.cloudScaleW != null ? this.skin.cloudScaleW : PET_CONFIG.cloudScaleW;
     const scaleH = this.skin.cloudScaleH != null ? this.skin.cloudScaleH : PET_CONFIG.cloudScaleH;
@@ -738,29 +739,31 @@ class DouknowPet {
     const cloudX = this.x - cloudW * 0.5;
     const cloudY = this.y + this.size * offsetY;
     if (cloud) {
-      ctx.globalAlpha = this.isDragging ? 0.92 : 0.82;
+      ctx.save();
+      ctx.globalAlpha = (this.isDragging ? 0.92 : 0.82) * baseAlpha;
       ctx.drawImage(cloud, cloudX, cloudY, cloudW, cloudH);
-      ctx.globalAlpha = 1;
+      ctx.restore();
     } else {
       const shadowW = this.size * 0.70;
       const shadowH = this.size * 0.14;
-      ctx.globalAlpha = 0.14;
+      ctx.save();
+      ctx.globalAlpha = 0.14 * baseAlpha;
       ctx.fillStyle = '#000';
       ctx.beginPath();
       ctx.ellipse(this.x, this.y + this.size * 0.42, shadowW, shadowH, 0, 0, Math.PI * 2);
       ctx.fill();
-      ctx.globalAlpha = 1;
+      ctx.restore();
     }
 
     // 哲理金句气泡（绘于宠物上方）
     if (this.talkText) {
-      this.drawTalkBubble(ctx);
+      this.drawTalkBubble(ctx, baseAlpha);
     }
 
     if (this.state === PetState.SLEEP) {
       for (const b of this.sleepBubbles) {
         ctx.save();
-        ctx.globalAlpha = b.alpha * 0.7;
+        ctx.globalAlpha = b.alpha * 0.7 * baseAlpha;
         ctx.font = `${Math.round(12 * b.scale)}px sans-serif`;
         ctx.fillStyle = '#8B9EFF';
         ctx.textAlign = 'center';
@@ -773,7 +776,7 @@ class DouknowPet {
     ctx.restore();
   }
 
-  drawTalkBubble(ctx) {
+  drawTalkBubble(ctx, baseAlpha) {
     const text = this.talkText;
     const fontSize = PET_CONFIG.talkFont;
     const padX = 14;
@@ -796,7 +799,7 @@ class DouknowPet {
     const bubbleX = this.x - bubbleW * 0.5;
     const bubbleY = this.y - this.size * 0.62 - bubbleH - 8;
 
-    ctx.globalAlpha = this.talkAlpha;
+    ctx.globalAlpha = this.talkAlpha * baseAlpha;
 
     // 气泡底色 + 描边 + 小尖
     const r = 10;
@@ -890,6 +893,10 @@ class PetParty {
     this.boundsPostTimer = 0;
     this.pendingSurfaceRect = null;
     this.bridgeDragPet = null;
+    // 可见性：父页面控制（未进入活动区域时隐藏，避免挤在 hero 上方夹缝）
+    this.targetAlpha = 1;     // 目标透明度（父页面下发）
+    this.currentAlpha = 0;    // 当前透明度（逐帧逼近目标，做淡入淡出）
+    this.visible = false;     // currentAlpha > 0.01 才算可见
 
     this.init();
   }
@@ -1007,6 +1014,9 @@ class PetParty {
         this.setSurfaceRect(data.rect);
       } else if (data.type === 'douknow-pet-exclusions') {
         this.setExclusions(data.rects);
+      } else if (data.type === 'douknow-pet-visibility') {
+        // 父页面控制显隐：未进入活动区时 visible=false，小豆淡出隐藏
+        this.targetAlpha = data.visible ? 1 : 0;
       } else if (data.type === 'douknow-pet-pointer') {
         this.mouseX = Number(data.x);
         this.mouseY = Number(data.y);
@@ -1056,9 +1066,24 @@ class PetParty {
     const dt = Math.min(timestamp - this.lastTime, 100);
     this.lastTime = timestamp;
 
+    // 透明度逐帧逼近目标，做淡入/淡出（300ms 软过渡，避免硬切）
+    const fadeSpeed = 1 / 300;
+    if (this.currentAlpha < this.targetAlpha) {
+      this.currentAlpha = Math.min(this.targetAlpha, this.currentAlpha + dt * fadeSpeed);
+    } else if (this.currentAlpha > this.targetAlpha) {
+      this.currentAlpha = Math.max(this.targetAlpha, this.currentAlpha - dt * fadeSpeed);
+    }
+    this.visible = this.currentAlpha > 0.01;
+
     const width = this.canvas.width / this.dpr;
     const height = this.canvas.height / this.dpr;
     this.ctx.clearRect(0, 0, width, height);
+
+    // 完全隐藏时跳过更新与绘制（省 CPU，也避免隐藏期间还在跑物理）
+    if (!this.visible) {
+      this.rafId = requestAnimationFrame((t) => this.loop(t));
+      return;
+    }
 
     for (const pet of this.pets) {
       pet.update(dt, timestamp, this.mouseX, this.mouseY);
@@ -1067,9 +1092,14 @@ class PetParty {
     // 宠物间分离：防止两只宠物重叠/穿插
     this.applyPetSeparation(dt);
 
+    // 全局透明度（淡入淡出）。用 save/restore 包住：draw 内部会自己改 globalAlpha，
+    // 但都在自己的 save/restore 里，restore 后回到这里设的 currentAlpha（乘法叠加）。
+    this.ctx.save();
+    this.ctx.globalAlpha = this.currentAlpha;
     for (const pet of this.pets) {
       pet.draw(this.ctx);
     }
+    this.ctx.restore();
 
     this.boundsPostTimer += dt;
     if (this.boundsPostTimer > 80) {
