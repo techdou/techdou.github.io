@@ -386,6 +386,207 @@
             color: var(--text-muted);
         }
 
+        /* === OPEN SOURCE === */
+        .oss-section {
+            position: relative;
+            z-index: 2;
+            background: var(--bg-cream);
+            padding: clamp(56px, 8vh, 104px) 0 clamp(56px, 8vh, 96px);
+            border-top: 1px solid var(--border-color);
+        }
+        .oss-lead { padding: 0 0 clamp(28px, 5vh, 48px); }
+        .oss-lead .lead-eyebrow {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--bean-sage-deep);
+            margin-bottom: 12px;
+        }
+        .oss-lead h2 {
+            font-family: var(--font-cn-display);
+            font-size: clamp(28px, 3.6vw, 44px);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+        .oss-intro {
+            margin-top: 16px;
+            max-width: 640px;
+            font-size: clamp(14px, 1.3vw, 16px);
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+        .oss-group { margin-bottom: clamp(36px, 5vh, 60px); }
+        .oss-group:last-of-type { margin-bottom: 0; }
+        .oss-group-label {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .oss-group-label .en {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-terracotta);
+        }
+        .oss-group-label .zh {
+            font-family: var(--font-cn-body);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .oss-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 22px;
+            margin-top: 20px;
+        }
+        .oss-card {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 22px 24px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        }
+        .oss-card:hover {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(192, 120, 90, 0.45);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .oss-card > * { position: relative; z-index: 1; }
+        .oss-card > .repo-reveal { z-index: 0; }
+        .oss-card-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .oss-card-name {
+            font-family: var(--font-display);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: var(--text-primary);
+            transition: color 0.3s var(--ease);
+        }
+        .oss-card:hover .oss-card-name { color: var(--accent-terracotta); }
+        .oss-card-lang {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .oss-card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+        .oss-inline {
+            margin-top: 16px;
+            font-family: var(--font-cn-body);
+            font-size: 12.5px;
+            letter-spacing: 0.02em;
+            color: var(--text-muted);
+        }
+        .oss-inline a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1px;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .oss-inline a:hover {
+            color: var(--accent-terracotta);
+            border-bottom-color: var(--accent-terracotta);
+        }
+        .oss-inline .sep { margin: 0 8px; color: var(--border-strong); }
+
+        .repo-reveal {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+            pointer-events: none;
+            background-color: var(--bg-cream);
+            background-image:
+                radial-gradient(circle 200px at var(--mx, -1000px) var(--my, -1000px), rgba(192,120,90,0.28) 0%, transparent 70%),
+                radial-gradient(circle 110px at var(--mx, -1000px) var(--my, -1000px), rgba(26,26,26,0.10) 0%, transparent 70%),
+                var(--reveal-image, none);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            mask-image: radial-gradient(circle 220px at var(--mx, -1000px) var(--my, -1000px), white 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(circle 220px at var(--mx, -1000px) var(--my, -1000px), white 0%, transparent 70%);
+        }
+        .repo-row-guqin   .repo-reveal { --reveal-image: url("assets/motifs/oss-guqin.webp"); }
+        .repo-row-bridge  .repo-reveal { --reveal-image: url("assets/motifs/oss-bridge.webp"); }
+        .repo-row-wave    .repo-reveal { --reveal-image: url("assets/motifs/oss-wave.webp"); }
+        .repo-row-peaks   .repo-reveal { --reveal-image: url("assets/motifs/oss-peaks.webp"); }
+        .repo-row-pouch   .repo-reveal { --reveal-image: url("assets/motifs/oss-pouch.webp"); }
+        .repo-row-scrolls .repo-reveal { --reveal-image: url("assets/motifs/oss-scrolls.webp"); }
+        .repo-row-brush   .repo-reveal { --reveal-image: url("assets/motifs/oss-brush.webp"); }
+        .repo-row-fan     .repo-reveal { --reveal-image: url("assets/motifs/oss-fan.webp"); }
+        .repo-row-wheel   .repo-reveal { --reveal-image: url("assets/motifs/oss-wheel.webp"); }
+        .repo-row-chime   .repo-reveal { --reveal-image: url("assets/motifs/oss-chime.webp"); }
+        .oss-card:hover .repo-reveal { opacity: 1; }
+
+        .lang-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .lang-python { background: #3572a5; }
+        .lang-ts     { background: #3178c6; }
+        .lang-vue    { background: #42b883; }
+        .lang-rust   { background: #dea584; }
+        .lang-html   { background: #e34c26; }
+        .lang-js     { background: #f1e05a; }
+        .lang-java   { background: #b07219; }
+        .lang-index  { background: var(--bean-sage-deep); }
+        .oss-more { margin-top: 32px; }
+        .oss-more a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--accent-terracotta);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.3s var(--ease);
+        }
+        .oss-more a:hover { border-bottom-color: var(--accent-terracotta); }
+        @media (max-width: 820px) {
+            .oss-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+
         /* === TIMELINE === */
         .timeline-section {
             padding: clamp(64px, 9vh, 112px) 0;
@@ -844,7 +1045,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">TechDaily <span class="work-title-en">每日科技快报</span></h2>
-                    <p class="work-desc">AI 驱动的日报引擎。每日自动 RSS、摘要、播报，从信息洪流中提炼当日要闻。不 FOMO 要 JOMO，只留存值得回看的那几条。</p>
+                    <p class="work-desc">AI 驱动的每日科技快报。自动抓 RSS、生成摘要、合成播报，每天只留值得回看的那几条。不 FOMO，要 JOMO。</p>
                     <div class="work-stack">
                         <span class="stack-chip">RSS</span>
                         <span class="stack-chip">LLM Summary</span>
@@ -874,7 +1075,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">Profile <span class="work-title-en">个人简历</span></h2>
-                    <p class="work-desc">一份关于「我为什么做教育」的回答。从课程实验到系统架构，从学习实践到线上服务——把路径写清楚，把选择讲明白。</p>
+                    <p class="work-desc">一份关于「我为什么做教育」的回答。从课程实验到系统架构，把走过的路、做的选择，写清楚、说明白。</p>
                     <div class="work-stack">
                         <span class="stack-chip">Editorial Design</span>
                         <span class="stack-chip">i18n</span>
@@ -904,7 +1105,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">EduManager <span class="work-title-en">教学讲义管理平台</span></h2>
-                    <p class="work-desc">面向高校教师的讲义托管与更新系统。Nginx 反代、PM2 守护、HTTPS 全链路——小工具的背后是完整的工程能力。</p>
+                    <p class="work-desc">面向高校教师的讲义托管与更新系统。Nginx 反代、PM2 守护、HTTPS 全链路，一台服务器上稳稳跑着的小站。</p>
                     <div class="work-stack">
                         <span class="stack-chip">Nginx</span>
                         <span class="stack-chip">PM2</span>
@@ -934,7 +1135,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">Dual Universe <span class="work-title-en">双生宇宙</span></h2>
-                    <p class="work-desc">写给重要的人的纪念日页面。Docker 容器化部署，前后端分离架构——技术是载体，情感是内核。</p>
+                    <p class="work-desc">写给重要的人的纪念日页面。Docker 部署、前后端分离，安安静静跑在服务器上，该在的日子都在。</p>
                     <div class="work-stack">
                         <span class="stack-chip">Docker</span>
                         <span class="stack-chip">前后端分离</span>
@@ -966,7 +1167,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">Tokens <span class="work-title-en">API 用量看板</span></h2>
-                    <p class="work-desc">聚合 DeepSeek、智谱、Kimi、MiniMax 四家国产大模型的实时额度监控。定时刷新、阈值告警、趋势可视化——自用工具，解决自己的问题。</p>
+                    <p class="work-desc">聚合 DeepSeek、智谱、Kimi、MiniMax 四家的额度看板：定时刷新、阈值告警、趋势可视化。自用工具，先解决自己的问题。</p>
                     <div class="work-stack">
                         <span class="stack-chip">DeepSeek</span>
                         <span class="stack-chip">智谱</span>
@@ -997,7 +1198,7 @@
                         </span>
                     </div>
                     <h2 class="work-title">LifeTime <span class="work-title-en">博客</span></h2>
-                    <p class="work-desc">一个写给自己的地方。技术思考、工程复盘、读书笔记。不追 SEO，不蹭热点——写得慢，但写得真。</p>
+                    <p class="work-desc">一个写给自己的地方：技术思考、工程复盘、读书笔记。不追热点，更新慢，但每篇都是真的想写才写。</p>
                     <div class="work-stack">
                         <span class="stack-chip">Writing</span>
                         <span class="stack-chip">工程复盘</span>
@@ -1009,6 +1210,154 @@
         </div>
     </div>
 </main>
+
+<!-- Open Source -->
+<section class="oss-section" id="open-source" aria-label="开源项目">
+    <div class="container">
+        <div class="oss-lead reveal">
+            <span class="lead-eyebrow">Open Source</span>
+            <h2>开源在 GitHub</h2>
+            <p class="oss-intro">跑在线上的服务在上一屏，源码和更多实验都在 GitHub。多数项目从自己的需求里长出来：备课要能动手的演示，读文献要顺手的流程，日常想省几步操作。写完自用，顺手开源。</p>
+        </div>
+
+        <!-- Agent Skills -->
+        <div class="oss-group reveal">
+            <p class="oss-group-label">
+                <span class="en">Agent Skills</span>
+                <span class="zh">给 AI 的专用工具</span>
+            </p>
+            <div class="oss-grid">
+
+                <a class="oss-card repo-row-guqin" href="https://github.com/techdou/dou-tone" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">dou-tone</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-python"></span>Python</span>
+                    </span>
+                    <p class="oss-card-desc">中文写作润色规范 Skill：覆盖报告、论文、技术方案、教学与个人内容，按用途定文体，按幅度分级改写。</p>
+                </a>
+
+                <a class="oss-card repo-row-brush" href="https://github.com/techdou/image2-api" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">image2-api</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-python"></span>Python</span>
+                    </span>
+                    <p class="oss-card-desc">接 OpenAI 兼容 Images API / GPT Image 中转的图像生成与编辑工作流：结构化提示词、dry-run 验证、可复现的运行元数据。</p>
+                </a>
+
+                <a class="oss-card repo-row-fan" href="https://github.com/techdou/ppt-studio" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">ppt-studio</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-python"></span>Python</span>
+                    </span>
+                    <p class="oss-card-desc">离线可用的 PPT / 幻灯片 / 海报生成 Skill：python-pptx 本地引擎 + PPTD 格式 + PowerPoint 视觉质检，不联网也能跑。</p>
+                </a>
+
+                <a class="oss-card repo-row-bridge" href="https://github.com/techdou/research-paper-hub" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">research-paper-hub</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-python"></span>Python</span>
+                    </span>
+                    <p class="oss-card-desc">论文科研工作流的统一入口：串起 CCFA 与 Nature 两族 skill 家族，检索、精读、写作、审稿走一条线。</p>
+                </a>
+
+            </div>
+            <p class="oss-inline">还有
+                <a href="https://github.com/techdou/whiteboard-video" target="_blank" rel="noopener">whiteboard-video</a><span class="sep">·</span><a href="https://github.com/techdou/mimo-audio-skill" target="_blank" rel="noopener">mimo-audio-skill</a><span class="sep">·</span><a href="https://github.com/techdou/classroom-annotator" target="_blank" rel="noopener">classroom-annotator</a><span class="sep">·</span><a href="https://github.com/techdou/awesome-techdou-skills" target="_blank" rel="noopener">28 个 Skills 完整索引 →</a>
+            </p>
+        </div>
+
+        <!-- Teaching & Visual -->
+        <div class="oss-group reveal">
+            <p class="oss-group-label">
+                <span class="en">Teaching &amp; Visual</span>
+                <span class="zh">把知识做成能上手的页面</span>
+            </p>
+
+            <div class="oss-grid">
+
+                <a class="oss-card repo-row-wave" href="https://github.com/techdou/wave-dynamics-lab" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">wave-dynamics-lab</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-ts"></span>TypeScript</span>
+                    </span>
+                    <p class="oss-card-desc">海浪动力学虚拟探索实验：面向高校海洋科学课程的 3D 虚拟仿真教学应用（Three.js + TypeScript），离线可运行。</p>
+                </a>
+
+                <a class="oss-card repo-row-peaks" href="https://github.com/techdou/dl-handbook" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">dl-handbook</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-vue"></span>Vue</span>
+                    </span>
+                    <p class="oss-card-desc">深度学习入门的交互式可视化教学网站（Vue 3 + Vite），概念配动图，看得见再理解。</p>
+                </a>
+
+                <a class="oss-card repo-row-wheel" href="https://github.com/techdou/wwtp-teaching-system" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">wwtp-teaching-system</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-ts"></span>TypeScript</span>
+                    </span>
+                    <p class="oss-card-desc">城市污水处理厂交互式 3D 工艺教学系统（Next.js + Three.js），把整套处理流程搬进浏览器。</p>
+                </a>
+
+                <a class="oss-card repo-row-scrolls" href="https://github.com/techdou/ruankao-software-designer" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">ruankao-software-designer</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-vue"></span>Vue</span>
+                    </span>
+                    <p class="oss-card-desc">软考中级软件设计师学习站：讲义精读、分章刷题、真题套卷、错题间隔复习，纯前端单机可用。</p>
+                </a>
+
+            </div>
+            <p class="oss-inline">还有
+                <a href="https://github.com/techdou/vis-handbook" target="_blank" rel="noopener">vis-handbook</a>（收录 74 类高级可视化图表的学术风格手册）
+            </p>
+        </div>
+
+        <!-- Tools -->
+        <div class="oss-group reveal">
+            <p class="oss-group-label">
+                <span class="en">Tools</span>
+                <span class="zh">先解决自己的问题，再想着别人</span>
+            </p>
+            <div class="oss-grid">
+
+                <a class="oss-card repo-row-pouch" href="https://github.com/techdou/prompt-pocket" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">prompt-pocket</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-rust"></span>Rust</span>
+                    </span>
+                    <p class="oss-card-desc">全局快捷键秒唤的提示词管理器：Markdown 存储、云盘同步、本地优先（Tauri v2 + Svelte 5）。</p>
+                </a>
+
+                <a class="oss-card repo-row-chime" href="https://github.com/techdou/VoiceHub" target="_blank" rel="noopener">
+                    <span class="repo-reveal" aria-hidden="true"></span>
+                    <span class="oss-card-head">
+                        <span class="oss-card-name">VoiceHub</span>
+                        <span class="oss-card-lang"><span class="lang-dot lang-rust"></span>Rust</span>
+                    </span>
+                    <p class="oss-card-desc">声枢：把小米蓝牙遥控器变成 Windows 无线麦克风 + 语音遥控器，走 BLE ATVV 协议。</p>
+                </a>
+
+            </div>
+            <p class="oss-inline">还有
+                <a href="https://github.com/techdou/CtrlTranslate" target="_blank" rel="noopener">CtrlTranslate</a><span class="sep">·</span><a href="https://github.com/techdou/mp-publisher" target="_blank" rel="noopener">mp-publisher</a><span class="sep">·</span><a href="https://github.com/techdou/shiye" target="_blank" rel="noopener">shiye</a>
+            </p>
+        </div>
+
+        <p class="oss-more reveal">
+            <a href="https://github.com/techdou?tab=repositories" target="_blank" rel="noopener">更多仓库与实验，都在 GitHub<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        </p>
+    </div>
+</section>
 
 <!-- Timeline -->
 <section class="timeline-section">
@@ -1031,7 +1380,7 @@
             </div>
             <div class="tl-node reveal reveal-d2">
                 <div class="tl-year">Now</div>
-                <p class="tl-text">持续构建中。技术、教育、表达——三条线，同一个内核。</p>
+                <p class="tl-text">持续构建中。技术、教育、表达，三条线并进。</p>
             </div>
         </div>
     </div>
@@ -1085,6 +1434,11 @@
     document.querySelectorAll('.work-row').forEach(row => {
         const reveal = row.querySelector('.work-reveal');
         trackMask(row, reveal);
+    });
+
+    document.querySelectorAll('.oss-card').forEach(card => {
+        const reveal = card.querySelector('.repo-reveal');
+        trackMask(card, reveal);
     });
 })();
 </script>

@@ -1,12 +1,13 @@
 # Techdou Profile
 
-Techdou 的个人站点（纯静态多页）。首页为项目展示页，附简历页；首页右下角有一只可拖拽的桌面宠物「小豆」。
+Techdou 的个人站点（纯静态多页）。首页为项目展示页——上半屏是线上服务精选，下半屏是 GitHub 开源项目精选；附简历页；首页还有一只可拖拽的桌面宠物「小豆」。
 
 线上地址：<https://techdou.github.io>
 
 ## 功能
 
-- **首页 `index.html`**：项目展示、领域卡片、时间线，配水墨风装饰素材（`assets/motifs/`）。首屏是「小豆滚动镜头剧场」——基于 Three.js 的 3D 角色场景，随滚动沿 CatmullRom 曲线轨道切换机位（CDN 加载 three@0.160，模型与环境贴图本地）。
+- **首页 `index.html`**：项目展示、时间线，配水墨风装饰素材（`assets/motifs/`）。首屏是「小豆滚动镜头剧场」——基于 Three.js 的 3D 角色场景，随滚动沿 CatmullRom 曲线轨道切换机位（CDN 加载 three@0.160，模型与环境贴图本地）。
+- **开源项目区**：按 Agent Skills / Teaching & Visual / Tools 三组分类，10 张精选卡片走两栏网格，每张卡片悬停时随鼠标位置显影一幅专属水墨意象图（`assets/motifs/oss-*.webp`）；组内其余项目以内联小字流收录，底部汇入 GitHub 全部仓库入口。
 - **简历页 `resume.html`**：在线简历，顶部按钮可下载 PDF（`assets/douxiulu_resume.pdf`）。
 - **桌面宠物**：首页 iframe 内嵌的宠物系统，当前登场角色为 **小豆**（站在书卷上）。支持自由游荡、哲理语录气泡、鼠标靠近逃跑、拖拽抛掷。宠物模块独立，详见 [`pet/`](./pet) 目录。
 
@@ -25,7 +26,7 @@ techdou-profile/
 │   ├── photo.webp            头像
 │   ├── wechat.webp           微信二维码
 │   ├── douxiulu_resume.pdf   简历 PDF
-│   ├── motifs/               首页水墨风装饰素材（梅兰竹菊 / 山水 / 印章）
+│   ├── motifs/               水墨风装饰素材（作品区：梅兰竹菊 / 山水 / 印章；开源区：古琴 / 桥 / 海浪 / 山峰 / 锦囊 / 书卷 / 画笔 / 折扇 / 水车 / 编钟）
 │   ├── env/                  3D 剧场环境贴图（草地 PBR 三件套 + 天空 HDR）
 │   └── model/                3D 剧场角色模型（小豆.glb + 抠图/PNG）
 └── pet/                    桌面宠物模块（首页 iframe 内嵌）
